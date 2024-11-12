@@ -1,0 +1,20 @@
+<!-- templates/skins/skin_list.html -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Skins</title>
+</head>
+<body>
+    <h1>Skins de League of Legends par Personnage</h1>
+    {% for champion, skins in skins_by_champion.items %}
+        <h2>{{ champion }}</h2>
+        <ul>
+            {% for skin in skins %}
+                <li>{{ skin.skin_name }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
