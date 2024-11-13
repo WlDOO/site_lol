@@ -1,13 +1,24 @@
 <!-- templates/skins/skin_list.html -->
 
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Liste des Skins</title>
+    <link rel="stylesheet" href="{% static 'skins/styles.css' %}">
 </head>
 <body>
     <h1>Skins de League of Legends par Personnage</h1>
+    
+    <!-- Barre de recherche -->
+    <form method="GET" action="{% url 'skin_list' %}">
+        <input type="text" name="q" placeholder="Rechercher un champion ou un skin" value="{{ query|default_if_none:'' }}">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Affichage des skins par champion -->
     {% for champion, skins in skins_by_champion.items %}
         <h2>{{ champion }}</h2>
         <ul>

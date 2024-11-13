@@ -2,13 +2,21 @@
 
 from django.shortcuts import render
 from .models import Skin
+from django.db.models import Q  # Import pour faire des recherches avec "OU"
 
 def skin_list(request):
-    # Récupère tous les skins et les trie par personnage
+    query = request.GET.get('q')  # Récupère le terme de recherche depuis la requête GET
+    if query:
+        # Filtrer les skins selon le nom du champion ou le nom du skin
+        skins = Skin.objects.filter(Q(champion__icontains=query) | Q(skin_name__icontains=query)).order_by('champion')
+    else:
+        skins = Skin.objects.all().order_by('champion')
+    
+    # Trier les skins par champion pour le template
     skins_by_champion = {}
-    for skin in Skin.objects.all().order_by('champion'):
+    for skin in skins:
         if skin.champion not in skins_by_champion:
             skins_by_champion[skin.champion] = []
         skins_by_champion[skin.champion].append(skin)
     
-    return render(request, 'skins/skin_list.html', {'skins_by_champion': skins_by_champion})
+    return render(request, 'skins/skin_list.html', {'skins_by_champion': skins_by_champion, 'query': query})

@@ -131,3 +131,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'league_skins.db',  # Chemin vers ta base de données
     }
 }
+
+import os
+
+# URL de base pour accéder aux fichiers statiques
+STATIC_URL = '/static/'
+
+# Emplacement des fichiers statiques pour les applications
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'skins/static')]
+
+# Optionnel : en production, utiliser STATIC_ROOT pour collecter tous les fichiers statiques
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    BASE_DIR / "skins/static",
+]
