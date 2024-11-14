@@ -146,3 +146,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / "skins/static",
 ]
+
+# settings.py
+ALLOWED_HOSTS = ['*']  # Pour tester en développement uniquement

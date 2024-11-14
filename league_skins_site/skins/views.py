@@ -17,6 +17,11 @@ def skin_list(request):
     for skin in skins:
         if skin.champion not in skins_by_champion:
             skins_by_champion[skin.champion] = []
-        skins_by_champion[skin.champion].append(skin)
+        # Ajoute chaque skin avec son champ skin_id
+        skins_by_champion[skin.champion].append({
+            'champion': skin.champion,
+            'skin_name': skin.skin_name,
+            'skin_id': skin.skin_id  # Ajout du champ skin_id
+        })
     
     return render(request, 'skins/skin_list.html', {'skins_by_champion': skins_by_champion, 'query': query})
